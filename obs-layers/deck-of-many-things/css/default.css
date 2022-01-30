@@ -1,0 +1,47 @@
+.card {
+    position: absolute;
+    width: 180px;
+    height: 296px;
+    max-width: 180px;
+    max-height: 296px;
+
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 16px;
+    
+    cursor: pointer;
+    overflow: hidden;
+
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.30);
+
+    transition: transform 2s;
+    transform-style: preserve-3d;
+}
+
+.card.face {
+    backface-visibility: hidden;
+}
+
+.card.face.back {
+    transform: rotateY(0deg) rotateZ(180deg);
+}
+
+.card.face.selected {
+    transform: rotateZ(0deg);
+}
+
+.card.face.back.flipped {
+    transform-origin: right;
+    transform: rotateY(-180deg);
+}
+
+.card.face.front {
+    transform: rotateY(-180deg);
+}
+
+.card.face.front.flipped {
+    z-index: 99;
+    transform-origin: right;
+    transform: rotateY(0deg);
+}

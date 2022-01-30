@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/default.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/board.js"></script>
+        <script src="js/card.js"></script>
+        <script src="js/deck.js"></script>
+        <script src="js/texture.js"></script>
+        <script>
+            var texture = undefined
+            var board = undefined
+            var deck = undefined
+            function main() {
+                var texture = NewTexture()
+                var board = NewBoard($("#canvas"))
+                deck = NewDeck(texture)
+
+                for (var card = NewCard(texture, board, deck); card != undefined; card = NewCard(texture, board, deck)) {
+                    board.withCard(card)
+                }
+
+                board.render()
+                $(document).keypress(function(event){
+                    if (event.key == "s") {
+                        board.mode("stack")
+                    } else if (event.key == "d") {
+                        board.mode("deal")
+                    } else if (event.key == "n") {
+                        board.mode("stack")
+                        setTimeout(function() {
+                            deck.reset(true)
+                            board.clear()
+                            for (var card = NewCard(texture, board, deck); card != undefined; card = NewCard(texture, board, deck)) {
+                                board.withCard(card)
+                            }
+                            board.render()
+                        }, 2000)
+                    }
+                })
+            }
+        </script>
+    </head>
+    <body onload=main()>
+        <div id=canvas></div>
+    </body>
+</html>
